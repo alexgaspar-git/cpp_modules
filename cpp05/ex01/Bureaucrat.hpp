@@ -3,6 +3,9 @@
 
 # include <string>
 # include <iostream>
+# include "Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 
@@ -33,7 +36,7 @@ public:
     };
 
     void check_grade();
-    void signForm(const Form &f);
+    bool signForm(Form &f);
 };
 
 std::ostream &operator<<(std::ostream &output, const Bureaucrat &obj);

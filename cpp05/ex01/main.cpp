@@ -3,36 +3,39 @@
 int main() {
 
     try {
-        std::cout << "Try 1: ";
-        Bureaucrat bill("Billy", 1);
-        bill.promote();
-    } catch (Bureaucrat::GradeTooLowException &e) {
-        std::cout << e.what() << std::endl;
-    } catch (Bureaucrat::GradeTooHighException &e) {
-        std::cout << e.what() << std::endl;
+        Form f( "F1", 30, 0 );
+    } catch ( std::exception &e ) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
 
     try {
-        std::cout << "Try 2: ";
-        Bureaucrat jeff("Jeff", 150);
-        jeff.demote();
-    } catch (Bureaucrat::GradeTooLowException &e) {
-        std::cout << e.what() << std::endl;
-    } catch (Bureaucrat::GradeTooHighException &e) {
-        std::cout << e.what() << std::endl;
+        Form f( "F2", 1, 160 );
+    } catch ( std::exception &e ) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
+    std::cout << std::endl;
 
     try {
-        std::cout << "Try 3: ";
-        Bureaucrat bob("Bob", 75);
-        for (int i = 0; i < 50; i++) {
-            bob.promote();
-            // bob.demote();
-        }
-    } catch (Bureaucrat::GradeTooLowException &e) {
-        std::cout << e.what() << std::endl;
-    } catch (Bureaucrat::GradeTooHighException &e) {
-        std::cout << e.what() << std::endl;
+        Bureaucrat bureaucrat1 = Bureaucrat( "bureaucrat1", 1 );
+        std::cout << bureaucrat1 << std::endl;
+        Form f( "F3", 150, 150 );
+        std::cout << f << std::endl;
+        bureaucrat1.signForm( f );
+        std::cout << f << std::endl;
+    } catch ( std::exception &e ) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+
+    try {
+        Bureaucrat bureaucrat2 = Bureaucrat( "bureaucrat2", 30 );
+        std::cout << bureaucrat2 << std::endl;
+        Form f( "F4", 29, 150 );
+        std::cout << f << std::endl;
+        bureaucrat2.signForm( f );
+        std::cout << f << std::endl;
+    } catch ( std::exception &e ) {
+        std::cerr << "Error: " << e.what() << std::endl;
     }
 
     return 0;

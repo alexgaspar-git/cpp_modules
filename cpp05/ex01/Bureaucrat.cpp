@@ -55,3 +55,15 @@ void Bureaucrat::check_grade() {
         throw GradeTooHighException();
     }
 }
+
+bool Bureaucrat::signForm(Form &f) {
+    try {
+        f.beSigned(*this);
+        std::cout << _name << " signed " << f.getName() << std::endl;
+        return true;
+    } catch (Form::GradeTooLowException &e) {
+        std::cerr << _name << " coudln't sign " << f.getName() << " because: "
+                  << e.what() << std::endl;
+        return false;
+    }
+}

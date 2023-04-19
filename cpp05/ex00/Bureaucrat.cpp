@@ -34,7 +34,7 @@ void Bureaucrat::demote() {
     check_grade();
 }
 
-std::ostream &operator<<(std::ostream &output, Bureaucrat const &obj) {
+std::ostream &operator<<(std::ostream &output, const Bureaucrat &obj) {
     output << obj.getName() << ", bureaucrat grade " << obj.getGrade() << ".";
     return output;
 }
