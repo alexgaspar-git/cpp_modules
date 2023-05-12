@@ -43,21 +43,22 @@ static void convert_inf(std::string str) {
 }
 
 static void display_converted(char convChar, int convInt, float convFloat, double convDouble) {
-    if (isprint(convChar))
-        std::cout << "char: " << convChar << std::endl;
-    else
+    if (isprint(convChar)) {
+        std::cout << "char: '" << convChar << "'" << std::endl;
+    } else {
         std::cout << "char: non printable char" << std::endl;
-    std::cout << "int: " << convInt << std::endl;
+    }
+    if (convInt == INT_MIN && convDouble != INT_MIN) {
+        std::cout << "int: overflow" << std::endl;
+    } else {
+        std::cout << "int: " << convInt << std::endl;
+    }
     std::cout << "float: " << convFloat << "f" << std::endl;
     std::cout << "double: " << convDouble << std::endl;
 }
 
 static int ford(std::string str) {
-    int i = 0;
-    if (str[0] == '-')
-        i++;
-    while (isdigit(str[i]))
-        i++;
+    int i = str.find('.');
     i++;
     while (isdigit(str[i]))
         i++;
@@ -69,7 +70,7 @@ static int ford(std::string str) {
 }
 
 static int get_scalar(std::string str) {
-    if (str.size() == 1 && isalpha(str[0]))
+    if (str.size() == 1 && isprint(str[0]))
         return (CHAR);
     int i = 0;
     if (str[0] == '-')
@@ -131,7 +132,7 @@ static void convert_double(std::string str) {
     }
     char    convChar = static_cast<char>(convDouble);
 	int		convInt = static_cast<int>(convDouble);
-	float	convFloat = static_cast<float>(convInt);
+	float	convFloat = static_cast<float>(convDouble);
 	display_converted(convChar, convInt, convFloat, convDouble);
 }
 
