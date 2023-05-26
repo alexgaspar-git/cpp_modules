@@ -14,7 +14,7 @@ typedef struct Date {
     int month;
     int day;
 
-    Date(int y, int m, int d) : year(y), month(m), day(d) {}
+    Date(int y, int m, int d);
     Date operator--(int);
 } t_date;
 

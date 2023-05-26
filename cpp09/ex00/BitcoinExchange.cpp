@@ -2,6 +2,8 @@
 
 // ###################
 
+Date::Date(int y, int m, int d) : year(y), month(m), day(d) {}
+
 Date Date::operator--(int) {
     Date temp(*this);
     day--;
@@ -72,11 +74,21 @@ bool BitcoinExchange::parseDate(std::string &line) {
     std::string day = line.substr(i, 2);
     if (atoi(day.c_str()) > 31 || atoi(day.c_str()) < 1)
         return false;
+    if (year == "2009" && month == "01" && day == "01")
+        return false;
     _date = year + "-" + month + "-" + day;
     return true;
 }
 
+static bool isDouble(std::string &str) {
+    std::istringstream iss(str);
+    double value;
+    return (iss >> value) && (iss.eof());
+}
+
 bool BitcoinExchange::parseRate(std::string &line) {
+    if (!isDouble(line))
+        return false;
     double num = atof(line.c_str());
     if (num > 10000 || num < 0)
         return false;
@@ -155,7 +167,7 @@ const char *BitcoinExchange::InvalidDateException::what() const throw() {
 }
 
 const char *BitcoinExchange::InvalidRateValueException::what() const throw() {
-    return "Your rate value must be between 0 and 10000";
+    return "Your rate value must be a valid float between 0 and 10000";
 }
 
 const char *BitcoinExchange::InvalidFormatException::what() const throw() {
