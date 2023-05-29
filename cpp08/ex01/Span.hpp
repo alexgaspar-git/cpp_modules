@@ -5,6 +5,10 @@
 # include <string>
 # include <vector>
 # include <exception>
+# include <list>
+# include <algorithm>
+# include <exception>
+# include <cmath>
 
 class Span {
 private:

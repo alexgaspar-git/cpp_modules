@@ -163,7 +163,7 @@ void BitcoinExchange::calculateValue(std::ifstream &input) {
 }
 
 const char *BitcoinExchange::InvalidDateException::what() const throw() {
-    return "Invalid date format, please use YYYY-MM-DD";
+    return "Invalid date format, please only use dates between 2009 and 2022 in the YYYY-MM-DD format";
 }
 
 const char *BitcoinExchange::InvalidRateValueException::what() const throw() {
