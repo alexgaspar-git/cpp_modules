@@ -94,7 +94,6 @@ static bool parseNumbers(char **argv) {
 }
 
 int main(int argc, char **argv) {
-
     if (argc < 2) {
         std::cout << "Not enough numbers to sort." << std::endl;
         return 1;
