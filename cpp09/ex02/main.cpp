@@ -115,14 +115,12 @@ int main(int argc, char **argv) {
     }
 
     std::cout << "Before: ";
-
     printContainer(vec);
 
     double vecTime = sort(vec);
     double deqTime = sort(deq);
 
     std::cout << "After: ";
-
     printContainer(vec);
 
     std::cout << "Time to process a range of " << vec.size() << " elements with std::vector : " << vecTime << "ms" << std::endl;
