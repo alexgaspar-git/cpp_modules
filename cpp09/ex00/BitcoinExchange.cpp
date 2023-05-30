@@ -53,6 +53,33 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) {
 
 // ###################
 
+static bool isLeapYear(int year) {
+    if (year % 4 != 0) {
+        return false;
+    } else if (year % 100 != 0) {
+        return true;
+    } else if (year % 400 != 0) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+static bool isValidDate(std::string &year, std::string &month, std::string &day) {
+    if ((month == "04" || month == "06" || month == "09" || month == "11") && atoi(day.c_str()) > 30)
+        return false;
+    if (month == "02") {
+        if (atoi(day.c_str()) > 28) {
+            if (isLeapYear(atoi(year.c_str())) && atoi(day.c_str()) <= 29)
+                return true;
+            return false;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool BitcoinExchange::parseDate(std::string &line) {
     int i = 0;
     while (std::isspace(line[i]))
@@ -76,6 +103,8 @@ bool BitcoinExchange::parseDate(std::string &line) {
         return false;
     if (year == "2009" && month == "01" && day == "01")
         return false;
+    if (!isValidDate(year, month, day))
+        return false;
     _date = year + "-" + month + "-" + day;
     return true;
 }
@@ -90,7 +119,7 @@ bool BitcoinExchange::parseRate(std::string &line) {
     if (!isDouble(line))
         return false;
     double num = atof(line.c_str());
-    if (num > 10000 || num < 0)
+    if (num > 1000 || num < 0)
         return false;
     _rateVal = num;
     return true;
@@ -163,11 +192,11 @@ void BitcoinExchange::calculateValue(std::ifstream &input) {
 }
 
 const char *BitcoinExchange::InvalidDateException::what() const throw() {
-    return "Invalid date format, please only use dates between 2009 and 2022 in the YYYY-MM-DD format";
+    return "Invalid date format, please only use existing dates between 2009 and 2022 in the YYYY-MM-DD format";
 }
 
 const char *BitcoinExchange::InvalidRateValueException::what() const throw() {
-    return "Your rate value must be a valid float between 0 and 10000";
+    return "Your rate value must be a valid float between 0 and 1000";
 }
 
 const char *BitcoinExchange::InvalidFormatException::what() const throw() {
